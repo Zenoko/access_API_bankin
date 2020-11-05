@@ -13,10 +13,6 @@ The local server run on port 8000
 
 ## Improve API Server
 
-- 1
-- 1
-- 1
-- 1
-- 1
+- Ajouter un champ Timestamp pour identifier dans le temps les transactions faites
 
 ##
