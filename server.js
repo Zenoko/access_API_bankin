@@ -1,20 +1,18 @@
-var http = require("http");
-var url = require("url");
+const http = require("http");
 const axios = require('axios');
 const qs = require('querystring');
-fs = require('fs');
 
 
 // ******** Informations d'auth ********
-var loginBankinAPI = "BankinUser";
-var passwordBankinAPI = "12345678";
-var clientId = "BankinClientId";
-var clientSecret = "secret";
+const loginBankinAPI = "BankinUser";
+const passwordBankinAPI = "12345678";
+const clientId = "BankinClientId";
+const clientSecret = "secret";
 
 // ******** FIN Informations d'auth ********
 
 // URL API Bankin
-var url = "http://localhost:3000";
+const url = "http://localhost:3000";
 
 /** @description Get refresh token
 	* @return {refreshToken}
@@ -145,7 +143,7 @@ async function getAllAccounts() {
 	} while (lastResult.link.next !== null && page <= 3);
 	
 	
-	for(var i=0; i < accounts.length; i++)
+	for(let i=0; i < accounts.length; i++)
 	{
 		
 		let pageT = 1;
