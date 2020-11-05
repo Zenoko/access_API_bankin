@@ -17,7 +17,6 @@ var clientSecret = "secret";
 var url = "http://localhost:3000";
 
 /** @description Get refresh token
-	* @param {} : None
 	* @return {refreshToken}
 */
 async function getRefreshToken() {
@@ -42,11 +41,13 @@ async function getRefreshToken() {
 	try {
 		let response = await axios(options);
 		let refreshToken = response.data.refresh_token;
+		
 		console.log("");
 		console.log("*************** REFRESH TOKEN ***************");
 		console.log(refreshToken);
 		console.log("************* FIN REFRESH TOKEN *************");
 		console.log("");
+		
 		return await Promise.resolve(refreshToken);
 		
 		} catch (error) {
@@ -65,8 +66,6 @@ async function getAccessToken() {
 		grant_type: 'refresh_token',
 		refresh_token: qs.stringify(result)
 	}
-	
-	// console.log(requestBody);
 	
 	const options = {
 		method: 'post',
@@ -89,6 +88,7 @@ async function getAccessToken() {
 		console.log(AccessToken);
 		console.log("************* FIN ACCESS TOKEN *************");
 		console.log("");
+		
 		return await Promise.resolve(AccessToken);
 		
 		} catch (error) {
@@ -97,7 +97,7 @@ async function getAccessToken() {
 }
 
 /** @description Get all transactions for each account
-	* @return {accounts, transactions}
+	* @return {accounts}
 */
 async function getAllAccounts() {
 	
@@ -108,15 +108,11 @@ async function getAllAccounts() {
 	
 	let page = 1;
 	
-	// create empty array where we want to store accounts
 	let accounts = [];
 	
-	
-	// create a lastResult array which is going to be used to check if there is a next page
 	let lastResult = [];
 	
 	do {
-		// try catch to catch any errors in the async api call
 		try 
 		{
 			const options = 
@@ -132,7 +128,6 @@ async function getAllAccounts() {
 			let resp = await axios(options);
 			
 			lastResult = resp.data;
-			// console.log(lastResult);
 			
 			for(const [i,account] of resp.data.account.entries())
 			{			
@@ -142,15 +137,11 @@ async function getAllAccounts() {
 				const { acc_number, amount } = account;
 				accounts.push({ "acc_number":acc_number, "amount":amount, transactions});
 			}
-			
-			// continue;
-			// increment the page with 1 on each loop
 			page++;
 		} catch (err) 
 		{
 			console.error('Oeps, something is wrong '+ err);
 		}
-		// keep running until there's no next page
 	} while (lastResult.link.next !== null && page <= 3);
 	
 	
@@ -163,7 +154,6 @@ async function getAllAccounts() {
 		let lastResultT = [];
 		
 		do {
-			// try catch to catch any errors in the async api call
 			try 
 			{		
 				const optionsT = 
@@ -175,7 +165,6 @@ async function getAllAccounts() {
 					},
 					url: getTransactionUrl+accounts[i].acc_number+"/transactions?page="+pageT
 				}
-				// Use node-fetch to make api call
 				let respT = await axios(optionsT);
 				
 				lastResultT = respT.data;
@@ -199,6 +188,7 @@ async function getAllAccounts() {
 	}
 	
 	stringAccounts = JSON.stringify(accounts, null, 4);
+	
 	console.log("*************** ACCOUNTS ***************");
 	console.log(stringAccounts);
 	console.log("************* FIN ACCOUNTS *************");
