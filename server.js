@@ -190,7 +190,6 @@ async function getAllAccounts() {
 					pageT++;
 			} catch (err) 
 			{
-				console.log(err + getTransactionUrl+accounts[i].acc_number+"/transactions?page="+pageT);
 				break;
 			}
 			
@@ -199,8 +198,9 @@ async function getAllAccounts() {
 		continue;
 	}
 	
+	stringAccounts = JSON.stringify(accounts, null, 4);
 	console.log("*************** ACCOUNTS ***************");
-	console.log(JSON.stringify(accounts));
+	console.log(stringAccounts);
 	console.log("************* FIN ACCOUNTS *************");
 	console.log("");
 	
